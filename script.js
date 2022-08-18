@@ -200,7 +200,7 @@ function getZeroNum(num){
 
 
 
-function getZeroTimeSec(min, sec) {
+function getZeroTimeSec(sec) {
     getZeroSec = setInterval(()=>{
 
         --sec;
