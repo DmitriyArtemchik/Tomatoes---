@@ -1,0 +1,48 @@
+body {
+    background-color: aquamarine;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+button {
+    /* padding: 10rem; */
+    border-radius: 0.4rem;
+    /* height: 10rem; */
+    width: 15rem;
+    background-color: aquamarine;
+}
+
+button > img {
+    /* height: auto;
+    width: 100%; */
+    height: 15rem;
+}
+
+.base {
+    font-size: 3rem;
+}
+
+.time-screen {
+    display: flex;
+    justify-content: center;
+}
+
+.img {
+    width: 15rem;
+    height: 18rem;
+    position: relative;
+}
+
+.img > img {
+    width: 100%;
+    /* height: 100%; */
+    position: absolute;
+    top: 0;
+    left: 0;
+    /* transform: translate(-50%, 0); */
+}
+
+.dispnon {
+    display: none;
+}
