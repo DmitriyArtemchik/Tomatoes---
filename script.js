@@ -8,11 +8,8 @@ const base = document.querySelector('.base'),
       buttonStop = document.querySelector('.stop');
 
 let tomato = 1500000, // один рабочий томат
-// let tomato = 2000,
-//     interval = 1000,
-//     timeout = 1500,  
- interval = 300000, // 5 минутный перерыв 
- timeout = 1800000, // получасовой перерыв
+    interval = 300000, // 5 минутный перерыв 
+    timeout = 1800000, // получасовой перерыв
     second = 1000, 
     minute = 60000,
     many = 0,
@@ -21,7 +18,6 @@ let tomato = 1500000, // один рабочий томат
     getZeroMin,
     getZeroSec,
     setTimeoutZero;
-
 
 const obj = {
     two0 : document.getElementById('img_obj0'),
@@ -36,7 +32,9 @@ buttonStart.addEventListener("click", start);
 buttonStop.addEventListener("click", stop);
 
 
+
 function stop() {
+
     clearTimeout(setTimeoutZero);
     clearInterval(getZeroMin);
     clearInterval(getZeroSec);
@@ -48,9 +46,7 @@ function stop() {
     tomatoCounting = 0;
     countingInterval = 0;
 
-    console.log('stop', setTimeoutZero);
 }
-
 
 
 
@@ -65,26 +61,40 @@ function start() {
   
         obj.two3.classList.remove('dispnon');
 
-        getZeroTimeSec( 60 );
-        getZeroTimeMin( 05 );
+        getZeroTimeSec( 04, 60 );
+        getZeroTimeMin( 04 );
+
+        funTitleTime(04, 60);
+
+        timeScreenMin.innerHTML = '04';
 
     } else if (many === 4) {
         setTimeoutZero = setTimeout(timeoutLunch, interval);
 
         obj.two1.classList.remove('dispnon');
 
-        getZeroTimeSec( 60 );
-        getZeroTimeMin( 30 );
+        getZeroTimeSec( 29, 60 );
+        getZeroTimeMin( 29 );
+
+        funTitleTime(29, 60);
+
+        titleMin = 29;
+
+        timeScreenMin.innerHTML = '29';
 
     } else if (many <= 3) { 
         setTimeoutZero = setTimeout( startTomato, tomato);
 
         obj.two2.classList.remove('dispnon');
 
-        getZeroTimeSec( 60 );
-        getZeroTimeMin( 25 );
+        getZeroTimeSec( 24, 60 );
+        getZeroTimeMin( 24 );
 
-        title.innerHTML = '25:00';
+        funTitleTime(24, 60);
+
+        titleMin = 24;
+
+        timeScreenMin.innerHTML = '24';
 
     } else {
         console.log("error");
@@ -96,11 +106,7 @@ function start() {
     buttonStart.classList.add('dispnon');
     buttonStop.classList.remove('dispnon');
 
-    console.log('start', setTimeoutZero);
 }
-
-
-
 
 
 
@@ -127,10 +133,7 @@ function startTomato() {
         timeScreenMin.innerHTML = '30';
     }
 
-    console.log("startTomato", many, countingInterval, tomatoCounting, tomato);
 }
-
-
 
 
 
@@ -149,10 +152,7 @@ function coffeeInterval() {
 
     timeScreenMin.innerHTML = '25';
 
-    console.log("coffeeInterval", many, countingInterval, tomatoCounting, interval); 
 }
-
-
 
 
 
@@ -168,27 +168,26 @@ function timeoutLunch() {
 
     timeScreenMin.innerHTML = '25';
 
-    console.log("timeout :", many, countingInterval, tomatoCounting, timeout);
 }
-
-
 
 
 
 function imgObjremuw() {
+
     for (key in obj) { obj[key].classList.add('dispnon'); }
-    console.log("imgObjremuw");
+
 }
 
 
 
+HTMLAudioElement.prototype.stop = function() {
 
+    this.pause();
+    this.currentTime = 0.0;
 
-HTMLAudioElement.prototype.stop = function()
-{
-this.pause();
-this.currentTime = 0.0;
 }
+
+
 
 function getZeroNum(num){
     if (num >= 0 && num < 10) { 
@@ -200,46 +199,59 @@ function getZeroNum(num){
 
 
 
-function getZeroTimeSec(sec) {
+function funTitleTime(min, sec) {
+    
+    title.innerHTML = `${getZeroNum(min)} : ${getZeroNum(sec)}`;
+
+}
+
+
+
+function getZeroTimeSec(min, sec) {
+
     getZeroSec = setInterval(()=>{
 
         --sec;
 
-        if(sec === 0) {
+        if(sec > 0) {
+
+            funTitleTime(min, sec);
+
+        } else if(sec === 0) {
+
             sec = 60;
+            --min;
+
         }
         
         timeScreenSec.innerHTML = getZeroNum(sec);
 
-        // getZeroSec = setInterval(()=>{
-
-        // }, minute);
-        // title.innerHTML = `${mingetZeroNum(min)}`;
-
-        console.log(getZeroSec);
-
     }, second);
 }
 
-function getZeroTimeMin(min) {
+
+
+function getZeroTimeMin( min ) {
+
     getZeroMin = setInterval(()=>{
 
         --min;
+
         if(min === 0){
             
             setTimeout(()=>{
                 clearInterval(getZeroSec);  
                 timeScreenSec.innerHTML = '00';
                 title.innerHTML = 'tomato-timer';
+
+                console.log('STOP getZeroSec: ', getZeroMin);
             }, minute)
 
             clearInterval(getZeroMin);
-            
+
         }
 
         timeScreenMin.innerHTML = getZeroNum(min);
-
-        console.log(getZeroMin);
 
     }, minute);
 }
