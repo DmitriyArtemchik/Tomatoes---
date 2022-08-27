@@ -4,7 +4,10 @@ const base = document.querySelector('.base'),
       timeScreenMin = document.querySelector('.time-screen_min'),  
       timeScreenSec = document.querySelector('.time-screen_sec'),
       title = document.querySelector('title'),
-      buttonStart = document.querySelector('.start'),  
+      buttonStart = document.querySelector('.start'),
+      gameEnd = document.querySelector('.game_end'), 
+      gameStop = document.querySelector('.game_stop'),   
+      classError = document.querySelector('.error'), 
       buttonStop = document.querySelector('.stop');
 
 let tomato = 1500000, // один рабочий томат
@@ -54,9 +57,12 @@ function start() {
 
     imgObjremuw();
     if (tomatoCounting === 10) {
-        console.log("на сегодня хватит", tomatoCounting);
+
+        funGameEnd();
+        funGameStop();
 
     } else if (countingInterval === 1) {
+
         setTimeoutZero = setTimeout(coffeeInterval, interval);
   
         obj.two3.classList.remove('dispnon');
@@ -69,6 +75,7 @@ function start() {
         timeScreenMin.innerHTML = '04';
 
     } else if (many === 4) {
+
         setTimeoutZero = setTimeout(timeoutLunch, interval);
 
         obj.two1.classList.remove('dispnon');
@@ -83,6 +90,7 @@ function start() {
         timeScreenMin.innerHTML = '29';
 
     } else if (many <= 3) { 
+        
         setTimeoutZero = setTimeout( startTomato, tomato);
 
         obj.two2.classList.remove('dispnon');
@@ -97,7 +105,10 @@ function start() {
         timeScreenMin.innerHTML = '24';
 
     } else {
-        console.log("error");
+
+        funGameEnd();
+        funError();
+
     }
 
 
@@ -175,6 +186,33 @@ function timeoutLunch() {
 function imgObjremuw() {
 
     for (key in obj) { obj[key].classList.add('dispnon'); }
+
+}
+
+
+
+function funGameEnd() {
+
+    return (
+        gameEnd.classList.toggle('z5'),
+        gameEnd.classList.toggle('z-10')
+    )
+    
+}
+
+
+
+function funError() {
+
+    return classError.classList.toggle('dispnon')
+    
+}
+
+
+
+function funGameStop() {
+
+    return gameStop.classList.toggle('dispnon')
 
 }
 
